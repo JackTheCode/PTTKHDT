@@ -1,0 +1,117 @@
+﻿@model Core.DTO.ngach
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ngach</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.maso, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.maso)
+                @Html.ValidationMessageFor(model => model.maso)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ngach1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ngach1)
+                @Html.ValidationMessageFor(model => model.ngach1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nien_hang, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nien_hang)
+                @Html.ValidationMessageFor(model => model.nien_hang)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.C_1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.C_1)
+                @Html.ValidationMessageFor(model => model.C_1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.C_2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.C_2)
+                @Html.ValidationMessageFor(model => model.C_2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.C_3, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.C_3)
+                @Html.ValidationMessageFor(model => model.C_3)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.C_4, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.C_4)
+                @Html.ValidationMessageFor(model => model.C_4)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.C_5, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.C_5)
+                @Html.ValidationMessageFor(model => model.C_5)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.C_6, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.C_6)
+                @Html.ValidationMessageFor(model => model.C_6)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.C_7, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.C_7)
+                @Html.ValidationMessageFor(model => model.C_7)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.C_8, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.C_8)
+                @Html.ValidationMessageFor(model => model.C_8)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

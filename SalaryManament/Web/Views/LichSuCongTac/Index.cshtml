@@ -1,0 +1,108 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script src="/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="/Scripts/moment.js"></script>
+    <script src="/Scripts/bootstrap2.js"></script>
+    <title>Index</title>
+    <style>
+        .mytable tr,td{
+            padding:10px;
+        }
+        .mytable2 tr, td,th {
+            padding: 10px;
+        }
+        .myinfo{
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10">
+                <div class="panel panel-info myinfo">
+                    <div class="panel-heading">Lịch Sử Công Tác</div>
+                    <div class="panel-body">
+                        <table class="mytable">
+                            <tr>
+                                <td><h4>Mã Nhân Viên:</h4></td>
+                                <td><h4>@ViewBag.ma_nhanvien</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>Tên Nhân Viên:</h4></td>
+                                <td><h4>@ViewBag.ten_nhanvien</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>Ngày Vào Làm:</h4></td>
+                                <td><h4>@ViewBag.ngayvaolam_nhanvien</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>Ngạch</h4></td>
+                                <td>
+                                    <table class="mytable2">
+                                        <tr>
+                                            <th>Tên Ngạch</th>
+                                            <th>Bậc</th>
+                                            <th>Ngày</th>
+                                        </tr>
+                                        @if (ViewBag.ngachs != null)
+                                        {
+                                            foreach (var item in ViewBag.ngachs)
+                                            {
+                                            <tr>
+                                                <td>@item.ten</td>
+                                                <td>@item.bac</td>
+                                                <td>@item.ngay.ToString("dd/MM/yyyy")</td>
+                                            </tr>
+                                            }
+                                        }
+                                        
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><h4>Chức vụ</h4></td>
+                                <td>
+                                    <table class="mytable2">
+                                        <tr>
+                                            <th>Tên Chức vụ</th>
+                                            <th>Ngày</th>
+                                        </tr>
+                                        @if (ViewBag.chucvus != null)
+                                        {
+                                            foreach (var item in ViewBag.chucvus)
+                                            {
+                                            <tr>
+                                                <td>@item.ten</td>
+                                                <td>@item.ngay.ToString("dd/MM/yyyy")</td>
+                                            </tr>
+                                            }
+                                        }
+                                        
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+       
+    </div>
+       
+</body>
+</html>

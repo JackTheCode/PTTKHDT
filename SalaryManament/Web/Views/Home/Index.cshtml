@@ -1,0 +1,887 @@
+﻿@{
+    Layout = null;
+
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css">
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="/Scripts/moment.js"></script>
+    <script src="/Scripts/bootstrap2.js"></script>
+    <title>Index</title>
+    <style>
+        .mytable tr, td {
+            padding: 10px;
+        }
+
+        .nhanviens {
+            min-height: 400px;
+        }
+    </style>
+    <script>
+
+
+        function validate_add() {
+            var ma = $('#ma1').val();
+            var ten = $('#ten1').val();
+            var ngaysinh = $('#ngaysinh1').val();
+            var ngayvaolam = $('#ngayvaolam1').val();
+            var diachi = $('#diachi1').val();
+            var cmnd = $('#cmnd1').val();
+            //
+            if (ma == "") {
+                alert("Mã nhân viên không được để trắng");
+                return false;
+            }
+            if (ten == "") {
+                alert("Tên nhân viên không được để trắng");
+                return false;
+            }
+            if (ngaysinh == "") {
+                alert("Ngày sinh nhân viên không được để trắng");
+                return false;
+            }
+            if (ngayvaolam == "") {
+                alert("Ngày vào làm nhân viên không được để trắng");
+                return false;
+            }
+            if (diachi == "") {
+                alert("Địa chỉ nhân viên không được để trắng");
+                return false;
+            }
+            if (cmnd == "") {
+                alert("Số chứng minh nhân dân không được để trắng");
+                return false;
+            }
+            //
+            var test_date = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/g;
+            var date_start2 = moment(ngaysinh, "DD/MM/YYYY");
+            if (!test_date.test(ngaysinh) || !date_start2.isValid()) {
+                alert("Ngày sinh nhân viên không hợp lệ");
+                return false;
+            }
+            //
+            var date_start3 = moment(ngayvaolam, "DD/MM/YYYY");
+            var test_date2 = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/g;
+            if (!test_date2.test(ngayvaolam) || !date_start3.isValid()) {
+                alert("Ngày vào làm nhân viên không hợp lệ");
+                return false;
+            }
+
+            if (date_start2.isSame(date_start3) == true || date_start2.isBefore(date_start3) == false) {
+                alert("Ngày vào làm không hợp lệ");
+                return false;
+            }
+
+
+
+            check(ma);
+
+
+            //
+            return false;
+        }
+
+        function validate_update_canhan() {
+            var ten = $('#ten3').val();
+            var ngaysinh = $('#ngaysinh3').val();
+            var ngayvaolam = $('#ngayvaolam3').val();
+            var diachi = $('#diachi3').val();
+            var cmnd = $('#cmnd3').val();
+            //
+            if (ten == "") {
+                alert("Tên nhân viên không được để trắng");
+                return false;
+            }
+            if (ngaysinh == "") {
+                alert("Ngày sinh nhân viên không được để trắng");
+                return false;
+            }
+            if (ngayvaolam == "") {
+                alert("Ngày vào làm không được để trắng");
+                return false;
+            }
+
+            if (diachi == "") {
+                alert("Địa chỉ nhân viên không được để trắng");
+                return false;
+            }
+            if (cmnd == "") {
+                alert("Số chứng minh nhân dân không được để trắng");
+                return false;
+            }
+            //
+            var test_date = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/g;
+            var date_start2 = moment(ngaysinh, "DD/MM/YYYY");
+            if (!test_date.test(ngaysinh) || !date_start2.isValid()) {
+                alert("Ngày sinh nhân viên không hợp lệ");
+                return false;
+            }
+
+            var date_start3 = moment(ngayvaolam, "DD/MM/YYYY");
+            var test_date2 = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/g;
+            if (!test_date2.test(ngayvaolam) || !date_start3.isValid()) {
+                alert("Ngày vào làm nhân viên không hợp lệ");
+                return false;
+            }
+
+            if (date_start2.isSame(date_start3) == true || date_start2.isBefore(date_start3) == false) {
+                alert("Ngày vào làm không hợp lệ");
+                return false;
+            }
+
+            return true;
+
+        }
+        function check(manhanvien) {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("CheckAccount", "Home")',
+                data: { manhanvien: manhanvien },
+                success: function (result) {
+                    if (result.count == 0) {
+                        $('#form_add').submit(new function () { document.getElementById("form_add").submit(); });
+                    } else {
+                        alert("Mã nhân viên đã tồn tại");
+                    }
+                },
+                dataType: 'json'
+            });
+        }
+
+        function validate_update_chucvu() {
+            var ngay = $('#ngaychucvu_update_chucvu').val();
+            var ngayvaolam = $('#ngayvaolam4').val();
+
+            if (ngay == "") {
+                alert("Ngày nhận chức không được để trắng");
+                return false;
+            }
+            //
+            var test_date = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/g;
+            var date_start2 = moment(ngay, "DD/MM/YYYY");
+            if (!test_date.test(ngay) || !date_start2.isValid()) {
+                alert("Ngày nhận chức không hợp lệ");
+                return false;
+            }
+            var date_start3 = moment(ngayvaolam, "DD/MM/YYYY");
+
+            if (date_start2.isSame(date_start3) == false) {
+
+                if (date_start2.isBefore(date_start3) == true) {
+                    alert("Ngày nhận chức không hợp lệ. Ngày nhận chức phải lớn hơn hoặc bằng ngày vào làm ");
+                    return false;
+                }
+            }
+
+
+
+            return true;
+        }
+
+        function validate_update_ngach() {
+            var ngay = $('#ngay_update_ngach').val();
+            var ngayvaolam = $('#ngayvaolam5').val();
+            if (ngay == "") {
+                alert("Ngày nhận chức không được để trắng");
+                return false;
+            }
+            //
+            var test_date = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/g;
+            var date_start2 = moment(ngay, "DD/MM/YYYY");
+            if (!test_date.test(ngay) || !date_start2.isValid()) {
+                alert("Ngày nhận chức không hợp lệ");
+                return false;
+            }
+            var date_start3 = moment(ngayvaolam, "DD/MM/YYYY");
+
+            if (date_start2.isSame(date_start3) == false) {
+
+                if (date_start2.isBefore(date_start3) == true) {
+                    alert("Ngày nhận chức không hợp lệ. Ngày nhận chức phải lớn hơn hoặc bằng ngày vào làm ");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+    function delete2(id, name, image) {
+        $('#id2').val(id);
+        $('#image2').attr('src', image);
+        $('#name2').text(name);
+    }
+
+    function Chitiet(ma, ten, gioi_tinh, ngay_sinh, dan_toc, ngay_vao_lam, dia_chi, so_cmnd, chuc_vu, ngach, bac) {
+
+        $('#ma2').text(ma);
+        $('#ten2').text(ten);
+        $('#gioitinh2').text(gioi_tinh);
+        $('#ngaysinh2').text(ngay_sinh);
+        $('#dantoc2').text(dan_toc);
+        $('#ngayvaolam2').text(ngay_vao_lam);
+
+        $('#diachi2').text(dia_chi);
+        $('#cmnd2').text(so_cmnd);
+        $('#chucvu2').html(chuc_vu);
+
+        if (ngach == "Không có") {
+            $('#ngach_bac2').text("Không có");
+        } else {
+            $('#ngach_bac2').text(ngach + ' - Bậc: ' + bac);
+        }
+
+
+
+    }
+
+    function CapnhatCaNhan(id, ma, ten, gioi_tinh, ngay_sinh, dan_toc, ngay_vao_lam, dia_chi, so_cmnd) {
+
+        $('#id3').val(id);
+        $('#ma3').val(ma);
+        $('#ten3').val(ten);
+        $('#gioitinh3').val(gioi_tinh);
+        $('#ngaysinh3').val(ngay_sinh);
+        $('#dantoc3').val(dan_toc);
+        $('#ngayvaolam3').val(ngay_vao_lam);
+
+        $('#diachi3').val(dia_chi);
+        $('#cmnd3').val(so_cmnd);
+
+    }
+
+    function CapnhatChucVu(id, ma, ten, chucvu, ngayvaolam){
+        $('#id4').val(id);
+        $('#ma4').text(ma);
+        $('#ten4').text(ten);
+
+        $('#chucvu4').html(chucvu);
+        $('#ngayvaolam4').val(ngayvaolam);
+    }
+
+    function CapnhatNgach(id, ma, ten, ngach, bac, ngayvaolam){
+        $('#id5').val(id);
+        $('#ma5').text(ma);
+        $('#ten5').text(ten);
+        if (ngach == "Không có") {
+            $('#ngach_bac5').text("Không có");
+        } else {
+            $('#ngach_bac5').text(ngach + ' - Bậc: ' + bac);
+        }
+
+        $('#ngayvaolam5').val(ngayvaolam);
+    }
+
+    function Xoa(id, ma, ten) {
+        $('#id6').val(id);
+        $('#ma6').text(ma);
+        $('#ten6').text(ten);
+    }
+
+    //
+    var pagenum = 1;
+
+    function TakeData(j) {
+        var ma = $('#ma').val();
+        var ten = $('#ten').val();
+        var rowperpage = $('#rowperpage').val();
+
+        var re = /^[1-9][0-9]{0,1}$/g;
+        if (re.test(rowperpage) == false) {
+            alert("Hiển thị là một số nguyên từ 1 đến 99");
+            return;
+        }
+
+        pagenum = j;
+        //
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("TakeData", "Home")',
+            data: { ma: ma, ten: ten, page: pagenum, row_perpage: rowperpage },
+            success: function (result) {
+                $("#danhsach_nhanvien").children().remove();
+                if (result.data.length == 0) {
+                    $('.btn-group').html('');
+                }
+                for (var i = 0; i < result.data.length; i++) {
+
+                    var row = '<tr>';
+                    row = row + '<td>' + result.data[i].ma + '</td>';
+                    row = row + '<td>' + result.data[i].ten + '</td>';
+                    var h = "";
+                    var h2 = result.data[i].ngach;
+                    for (var j = 0; j < result.data[i].chucvu.length; j++) {
+                        if (result.data[i].chucvu[j] != null) {
+                            h = h + result.data[i].chucvu[j] + '<br>';
+                        }
+                    }
+
+                    if (h == "") {
+                        h = "Không có";
+                    }
+
+                    if (h2 == "") {
+                        h2 = "Không có";
+                    }
+
+                    row = row + '<td>' + h + '</td>';
+                    row = row + '<td>' + h2 + '</td>';
+                    //
+                    row = row + '<td>' + '<a href="/LichSuCongTac/id=' + result.data[i].id + '" target="_blank" >Xem</a>' + '</td>';
+                    row = row + '<td>';
+                    row = row + "<button type='button' onclick='Chitiet(\"" + result.data[i].ma + "\",\"" + result.data[i].ten + "\",\"" + result.data[i].gioi_tinh + "\",\"" + result.data[i].ngay_sinh + "\",\"" + result.data[i].dan_toc + "\",\"" + result.data[i].ngay_vao_lam + "\",\"" + result.data[i].dia_chi + "\",\"" + result.data[i].so_cmnd + "\",\"" + h + "\",\"" + h2 + "\",\"" + result.data[i].bac + "\");' class='btn btn-primary' data-toggle='modal' data-target='#ModalDetail'>Chi Tiết</button>";
+                    row = row + '</td>';
+
+                    row = row + '<td>';
+                    row = row + '<div class="dropdown">';
+                    row = row + '<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
+                    row = row + 'Cập nhật';
+                    row = row + '<span class="caret"></span>';
+                    row = row + '</button>';
+                    row = row + '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
+                    row = row + "<li><a href='#' onclick='CapnhatCaNhan(\"" + result.data[i].id + "\",\"" + result.data[i].ma + "\",\"" + result.data[i].ten + "\",\"" + result.data[i].gioi_tinh + "\",\"" + result.data[i].ngay_sinh + "\",\"" + result.data[i].dan_toc + "\",\"" + result.data[i].ngay_vao_lam + "\",\"" + result.data[i].dia_chi + "\",\"" + result.data[i].so_cmnd + "\");' data-toggle='modal' data-target='#ModalUpdateCaNhan' >Thông tin cá nhân</a></li>";
+                    row = row + "<li><a href='#' onclick='CapnhatChucVu(\"" + result.data[i].id + "\",\"" + result.data[i].ma + "\",\"" + result.data[i].ten + "\",\"" + h + "\",\"" + result.data[i].ngay_vao_lam + "\");' data-toggle='modal' data-target='#ModalUpdateChucVu' >Chức vụ</a></li>";
+                    row = row + "<li><a href='#' onclick='CapnhatNgach(\"" + result.data[i].id + "\",\"" + result.data[i].ma + "\",\"" + result.data[i].ten + "\",\"" + h2 + "\",\"" + result.data[i].bac + "\", \"" + result.data[i].ngay_vao_lam + "\");' data-toggle='modal' data-target='#ModalUpdateNgach' >Ngạch</a></li>";
+                    row = row + '</ul>';
+                    row = row + '</div>';
+                    row = row + '</td>';
+
+
+                    row = row + '<td>';
+                    row = row + "<button type='button' onclick='Xoa(\"" + result.data[i].id + "\",\"" + result.data[i].ma + "\",\"" + result.data[i].ten + "\");'  class='btn btn-primary' data-toggle='modal' data-target='#ModalDelete'>Xóa</button>";
+                    row = row + '</td>';
+
+                    row = row + '</tr>';
+                    $('#danhsach_nhanvien').append(row);
+                }
+                //link
+                var maxpage = Math.ceil(parseFloat(result.count) / rowperpage);
+                var s = '';
+                for (var i = -3; i < 5; i++) {
+                    var j = pagenum + i;
+                    if (j >= 1 && j <= maxpage) {
+                        if (j == pagenum) {
+                            var bt = '<button onclick="TakeData(' + j + ')" type="button" class="btn btn-default" style="color:red">' + j + '</button>';
+                            s = s + bt;
+                        } else {
+                            var bt = '<button onclick="TakeData(' + j + ')" type="button" class="btn btn-default">' + j + '</button>';
+                            s = s + bt;
+                        }
+                    }
+                }
+                $('.btn-group').html(s);
+            }
+        });
+
+    }
+
+        $(document).ready(function () {
+            TakeData(1);
+            $('#ngach').change(function () {
+                var idngach = $('#ngach').val();
+                if (idngach == "0") {
+
+                    $('#bac').css('visibility', 'hidden');
+
+                } else {
+                    $('#bac').css('visibility', 'visible');
+                }
+            });
+
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+    @RenderPage("/Views/Shared/nav.cshtml")
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4 form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Hiển thị</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="rowperpage" value="10" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Mã nhân viên" id="ma" />
+                    <div class="input-group-btn">
+                        <button type="button" data-toggle="collapse" data-target="#demo" class="btn btn-default"><span class="caret"></span></button>
+                        <button class="btn btn-default" onclick="TakeData(1)"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+                <div id="demo" class="collapse">
+                    <div class="panel panel-info">
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Tên</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" id="ten">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#ModalAdd">Thêm nhân viên</button>
+                </div>
+            </div>
+        </div>
+        <br /><br /><br /><br />
+        <div class="row">
+            <div class="nhanviens">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">Mã</th>
+                            <th class="col-sm-2">Tên</th>
+                            <th class="col-sm-2">Chức vụ</th>
+                            <th class="col-sm-2">Ngạch</th>
+                            <th class="col-sm-2">Lịch sử công tác</th>
+                            <th class="col-sm-1">Chi tiết</th>
+                            <th class="col-sm-1">Cập nhật</th>
+                            <th class="col-sm-1">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="danhsach_nhanvien"></tbody>
+                </table>
+
+            </div>
+
+            <div class="row">
+                <div class="text-center">
+                    <div class="btn-group">
+                    </div>
+                </div>
+            </div>
+            <br /><br /><br /><br /><br /><br />
+
+        </div>
+        <div id="ModalAdd" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Thêm nhân viên</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" action="/Home/Add" method="post" id="form_add">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Mã</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="ma" id="ma1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Tên</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="ten" id="ten1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Giới tính</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="gioitinh">
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Dân tộc</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="dantoc">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngày sinh</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="ngaysinh" placeholder="DD/MM/YYYY" id="ngaysinh1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngày vào làm</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="ngayvaolam" placeholder="DD/MM/YYYY" id="ngayvaolam1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Địa chỉ</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="diachi" id="diachi1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Số CMND</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="cmnd" id="cmnd1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Chức vụ</label>
+                                <div class="col-sm-6">
+                                    @foreach (var i in ViewBag.chucvu)
+                                    {
+                                        <input type="checkbox" name="chucvu" value="@i.id">@i.chuc_vu<br>
+                                    }
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngạch-Bậc</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="ngach">
+                                        @foreach (var i in ViewBag.ngach)
+                                        {
+                                            <option value="@i.id">@i.ngach1</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select class="form-control" name="bac">
+                                        @for (int i = 1; i < 9; i++)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-default" onclick="return validate_add()">Thêm</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ModalDetail" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Thông tin chi tiết</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="mytable">
+                            <tr>
+                                <td class="col-sm-3">Mã</td>
+                                <td class="col-sm-6" id="ma2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Tên</td>
+                                <td class="col-sm-6" id="ten2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Giới tính</td>
+                                <td class="col-sm-6" id="gioitinh2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Dân tộc</td>
+                                <td class="col-sm-6" id="dantoc2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Ngày sinh</td>
+                                <td class="col-sm-6" id="ngaysinh2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Ngày vào làm</td>
+                                <td class="col-sm-6" id="ngayvaolam2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Địa chỉ</td>
+                                <td class="col-sm-6" id="diachi2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Số CMND</td>
+                                <td class="col-sm-6" id="cmnd2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Chức vụ</td>
+                                <td class="col-sm-6" id="chucvu2"></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-3">Ngạch-Bậc</td>
+                                <td class="col-sm-6" id="ngach_bac2"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ModalUpdateCaNhan" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Cập Nhật Thông Tin Cá Nhân</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" action="/Home/UpdateCaNhan" method="post">
+                            <input type="hidden" class="form-control" name="id" id="id3">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Mã</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="ma" id="ma3" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Tên</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="ten" id="ten3">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Giới tính</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="gioitinh" id="gioitinh3">
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Dân tộc</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="dantoc" id="dantoc3">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngày sinh</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="ngaysinh" id="ngaysinh3" placeholder="DD/MM/YYYY">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngày vào làm</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="ngayvaolam" id="ngayvaolam3" placeholder="DD/MM/YYYY">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Địa chỉ</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="diachi" id="diachi3">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Số CMND</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="cmnd" id="cmnd3">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-default" onclick="return validate_update_canhan()">Cập Nhật</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ModalUpdateChucVu" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Cập Nhật Chức Vụ</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="ngayvaolam4">
+                        <form class="form-horizontal" action="/Home/UpdateChucVu" method="post">
+                            <input type="hidden" class="form-control" name="id" id="id4">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Mã</label>
+                                <div class="col-sm-6">
+                                    <label class="control-label" id="ma4"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Tên</label>
+                                <div class="col-sm-6">
+                                    <label class="control-label" id="ten4"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Chức vụ cũ</label>
+                                <div class="col-sm-6">
+                                    <label class="control-label" id="chucvu4"></label>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Chức vụ mới</label>
+                                <div class="col-sm-6">
+                                    @foreach (var i in ViewBag.chucvu)
+                                    {
+                                        <input type="checkbox" name="chucvu" value="@i.id">@i.chuc_vu<br>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngày nhận chức</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="ngaychucvu" id="ngaychucvu_update_chucvu">
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-default" onclick="return validate_update_chucvu()">Cập Nhật</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ModalUpdateNgach" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Cập nhật Ngạch</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="ngayvaolam5">
+                        <form class="form-horizontal" action="/Home/UpdateNgach" method="post">
+                            <input type="hidden" class="form-control" name="id" id="id5">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Mã</label>
+                                <div class="col-sm-6">
+                                    <label class="control-label" id="ma5"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Tên</label>
+                                <div class="col-sm-6">
+                                    <label class="control-label" id="ten5"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngạch-Bậc cũ</label>
+                                <div class="col-sm-6">
+                                    <label class="control-label" id="ngach_bac5"></label>
+                                </div>
+                            </div>
+                            <hr />
+
+
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngạch-Bậc Mới</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="ngach" id="ngach">
+                                        <option value="0"></option>
+                                        @foreach (var i in ViewBag.ngach)
+                                        {
+                                            <option value="@i.id">@i.ngach1</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-sm-2" style="visibility:hidden" id="bac">
+                                    <select class="form-control" name="bac">
+                                        @for (int i = 1; i < 9; i++)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Ngày nhận chức</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="ngay" id="ngay_update_ngach">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-default" onclick="return validate_update_ngach()">Cập Nhật</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ModalDelete" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Bạn có chắc là muốn xóa nhân viên ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" action="/Home/Delete" method="post">
+                            <input type="hidden" class="form-control" name="id" id="id6">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Mã</label>
+                                <div class="col-sm-6">
+                                    <label class="control-label" id="ma6"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Tên</label>
+                                <div class="col-sm-6">
+                                    <label class="control-label" id="ten6"></label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-default">Xóa</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿@model Core.DTO.ngach
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ngach</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.maso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ngach1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ngach1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nien_hang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nien_hang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_6)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_6)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_7)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_7)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_8)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_8)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

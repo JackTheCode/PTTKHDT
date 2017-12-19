@@ -1,0 +1,5 @@
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TransactionScript\bin\Debug\TransactionScript.dll.config
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TransactionScript\bin\Debug\TransactionScript.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TransactionScript\bin\Debug\TransactionScript.pdb
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TransactionScript\obj\Debug\TransactionScript.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TransactionScript\obj\Debug\TransactionScript.pdb

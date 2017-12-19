@@ -1,0 +1,12 @@
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\TableModule.dll.config
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\TableModule.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\TableModule.pdb
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\DomainModel.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\EntityFramework.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\DomainModel.pdb
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\EntityFramework.xml
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\obj\Debug\TableModule.csprojResolveAssemblyReference.cache
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\obj\Debug\TableModule.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\TableModule\obj\Debug\TableModule.pdb

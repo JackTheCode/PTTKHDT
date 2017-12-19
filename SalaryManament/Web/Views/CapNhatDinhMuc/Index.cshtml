@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css">
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery-1.9.1.min.js"></script>
+    <title>Index</title>
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function () {
+                var dinhmuc = $('#dinhmuc').val();
+                if (dinhmuc.length == 0) {
+                    alert("Lương định mức không được để trống");
+                    return false;
+                }
+                
+            });
+
+        });
+    </script>
+</head>
+<body>
+    @RenderPage("/Views/Share/nav.cshtml")
+    <div class="container">
+        <h1 class="text-center">Cập Nhật Định Mức</h1>
+        <br /><br />
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-6">
+                <form class="form-horizontal" action="/CapNhatDinhMuc/CapNhat" method="post">
+                   
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Định mức</label>
+                        <div class="col-sm-6">
+                            <input type="number" min="1" class="form-control" value="@ViewBag.dinhmuc.dinhmuc" name="dinhmuc" id="dinhmuc"/>
+                        </div>
+                    </div>
+                   
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-6">
+                            <button type="submit" class="btn btn-default">Xác Nhận</button>
+                        </div>
+                    </div>
+                </form>
+               
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Core.DTO.ngach>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.maso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ngach1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nien_hang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_6)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_7)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_8)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.maso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ngach1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nien_hang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_6)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_7)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_8)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

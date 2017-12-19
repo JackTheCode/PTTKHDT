@@ -1,0 +1,9 @@
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\bin\Debug\DomainModel.dll.config
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\bin\Debug\DomainModel.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\bin\Debug\DomainModel.pdb
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\bin\Debug\EntityFramework.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\bin\Debug\EntityFramework.xml
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\obj\Debug\DomainModel.dll
+c:\users\phatnguyen\documents\visual studio 2013\Projects\SalaryManament\DomainModel\obj\Debug\DomainModel.pdb
