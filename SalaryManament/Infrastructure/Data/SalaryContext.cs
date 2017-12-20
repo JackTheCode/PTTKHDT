@@ -18,8 +18,8 @@ namespace Infrastructure.Data
         public DbSet<nhanvien_ngach> nhanvien_ngach { get; set; }
         public DbSet<nhanvien2> nhanvien2 { get; set; }
         public DbSet<SubLuong> SubLuong { get; set; }
-        public DbSet<lichsuchucvu> lichsuchucvu { get; set; }
-        public DbSet<lichsungach> lichsungach { get; set; }
+        //public DbSet<lichsuchucvu> lichsuchucvu { get; set; }
+        //public DbSet<lichsungach> lichsungach { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

@@ -22,3 +22,6 @@ C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Infrast
 C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
 C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Infrastructure\obj\Debug\TableModule.dll
 C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Infrastructure\obj\Debug\TableModule.pdb
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Infrastructure\bin\Debug\Newtonsoft.Json.dll
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Infrastructure\bin\Debug\System.Web.Helpers.dll
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Infrastructure\bin\Debug\System.Web.Helpers.xml

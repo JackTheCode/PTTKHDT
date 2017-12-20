@@ -62,9 +62,6 @@
     <Compile Include="DTO\lichsungach.cs" />
     <Compile Include="DTO\luong.cs" />
     <Compile Include="DTO\SubLuong.cs" />
-    <Compile Include="Model\ChucVu_Model.cs" />
-    <Compile Include="Model\Ngach_Model.cs" />
-    <Compile Include="Model\Nhanvien_Model.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

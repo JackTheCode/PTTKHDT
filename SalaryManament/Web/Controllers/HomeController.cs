@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Infrastructure.Data;
 using Core.DTO;
 using System.Globalization;
-
+using Infrastructure.Data.Repository;
 
 namespace Web.Controllers
 {
@@ -16,71 +16,26 @@ namespace Web.Controllers
         public ActionResult Index()
         {
 
-            ViewBag.chucvu = db.chucvu.ToList();
-            ViewBag.Ngach = db.ngach.ToList();
+            ViewBag.chucvu = new ChucVuRepository(db).getChucVuList();
+            ViewBag.Ngach = new NgachRepository(db).getNgachList();
             return View();
         }
 
         public JsonResult TakeData(string ma, string ten, int page, string row_perpage)
         {
 
-            var query = from b in db.nhanvien
-                        where b.ma.Contains(ma) && b.ten.Contains(ten)
-                        select b;
-            List<nhanvien> list = query.ToList<nhanvien>();
-
+            List<nhanvien> list = new NhanVienRepository(db).getNhanVienList(ma, ten);
             List<nhanvien2> list2 = new List<nhanvien2>();
             for (int i = 0; i < list.Count; i++)
             {
                 var id_nhanvien = list[i].id;
-                string ngach = "";
-                string bac = "";
-                var query2 = (from b in db.nhanvien_ngach
-                              join c in db.ngach on b.id_ngach equals c.id
-                              where b.id_nhanvien == id_nhanvien
-                              select new
-                              {
-                                  ngach = c.ngach1,
-                                  bac = b.bac,
-                                  ngay = b.ngay
-                              }).OrderByDescending(x => x.ngay);
-                if (query2.Count() != 0)
-                {
-                    ngach = query2.FirstOrDefault().ngach;
-                    bac = query2.FirstOrDefault().bac;
-                }
-
-
-                //
-                string[] list_chucvu = new string[10];
-                var MaxDate = (from d in db.nhanvien_chucvu
-                               where d.id_nhanvien == id_nhanvien
-                               select d.ngay).Max();
-
-                var query3 = from b in db.nhanvien_chucvu
-                             join c in db.chucvu on b.id_chucvu equals c.id
-                             where b.id_nhanvien == id_nhanvien && b.ngay == MaxDate
-                             select new
-                             {
-                                 ten = c.chuc_vu
-                             };
-                int v = 0;
-                //
-                if (query3.Count() != 0)
-                {
-
-                    foreach (var item in query3)
-                    {
-                        list_chucvu[v] = item.ten;
-                        v++;
-                    }
-                }
-
-
+                var MaxDate = new NhanVienRepository(db).getMaxDate(id_nhanvien);
+                var list_chucvu = new ChucVuRepository(db).getTenChucVuList(ten, id_nhanvien, MaxDate);
+                var ngach = new NhanVienRepository(db).getNhanVienNgach(id_nhanvien);
+                var bac = new NhanVienRepository(db).getNhanVienBac(id_nhanvien);
                 nhanvien2 h = new nhanvien2(id_nhanvien, list[i].ma, list[i].ten, list[i].gioi_tinh, list[i].ngay_sinh, list[i].dan_toc, list[i].ngay_vao_lam, list[i].dia_chi, list[i].so_cmnd, list_chucvu, ngach, bac);
                 list2.Add(h);
             }
-
 
             int rowperpage = Int32.Parse(row_perpage);
 
@@ -110,18 +65,16 @@ namespace Web.Controllers
             var ngach = Int32.Parse(Request.Form["ngach"]);
             var bac = Request.Form["bac"];
 
-            //
-
             nhanvien a = new nhanvien { ma = ma, ten = ten, gioi_tinh = gioitinh, dan_toc = dantoc, ngay_sinh = ngaysinh, ngay_vao_lam = ngayvaolam, dia_chi = diachi, so_cmnd = cmnd };
-            db.nhanvien.Add(a);
+            new NhanVienRepository(db).addNhanVien(a);
             db.SaveChanges();
             nhanvien_ngach b = new nhanvien_ngach { id_ngach = ngach, id_nhanvien = a.id, bac = bac, ngay = ngayvaolam2 };
-            db.nhanvien_ngach.Add(b);
+            new NhanVienNgachRepository(db).AddNhanVienNgach(b);
             db.SaveChanges();
             if (chucvu == null)
             {
                 nhanvien_chucvu c = new nhanvien_chucvu { id_chucvu = 0, id_nhanvien = a.id, ngay = ngayvaolam2, totnhat = "true" };
-                db.nhanvien_chucvu.Add(c);
+                new NhanVienChucVuRepository(db).AddNhanVienChucVu(c);
                 db.SaveChanges();
             }
             else
@@ -143,11 +96,12 @@ namespace Web.Controllers
                     }
                 }
                 list2[k].totnhat = "true";
-                db.nhanvien_chucvu.AddRange(list2);
+                new NhanVienChucVuRepository(db).AddRangeNhanVienChucVu(list2);
                 db.SaveChanges();
             }
             return Redirect("/Home");
         }
+
 
 
         public ActionResult UpdateCaNhan()
@@ -163,10 +117,7 @@ namespace Web.Controllers
             var cmnd = Request.Form["cmnd"]; ;
             //
 
-            var query = from b in db.nhanvien
-                        where b.id == id
-                        select b;
-            nhanvien a = query.FirstOrDefault<nhanvien>();
+            nhanvien a = new NhanVienRepository(db).getNhanVien(id);
             a.ma = ma;
             a.ten = ten;
             a.gioi_tinh = gioitinh;
@@ -188,12 +139,10 @@ namespace Web.Controllers
             var ngaychucvu = Request.Form["ngaychucvu"];
             var ngaychucvu2 = DateTime.ParseExact(ngaychucvu, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-            var query0 = from b in db.nhanvien_chucvu
-                         where b.ngay == ngaychucvu2
-                         select b;
+            var query0 = new NhanVienChucVuRepository(db).getQueryNgayChucVu(ngaychucvu2);
             if (query0 != null)
             {
-                db.nhanvien_chucvu.RemoveRange(query0);
+                new NhanVienChucVuRepository(db).removeNhanVienChucVuRange(query0);
                 db.SaveChanges();
             }
 
@@ -220,7 +169,7 @@ namespace Web.Controllers
                     }
                 }
                 list2[k].totnhat = "true";
-                db.nhanvien_chucvu.AddRange(list2);
+                new NhanVienChucVuRepository(db).AddRangeNhanVienChucVu(list2);
                 db.SaveChanges();
             }
 
@@ -236,19 +185,17 @@ namespace Web.Controllers
             var ngay = Request.Form["ngay"];
             var ngay2 = DateTime.ParseExact(ngay, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             //
-            var query0 = from b in db.nhanvien_ngach
-                         where b.ngay == ngay2
-                         select b;
+            var query0 = new NhanVienNgachRepository(db).getQueryNgay(ngay2);
             if (query0 != null)
             {
-                db.nhanvien_ngach.RemoveRange(query0);
+                new NhanVienNgachRepository(db).removeNhanVienNgachRange(query0);
                 db.SaveChanges();
             }
             //
             if (ngach != 0)
             {
                 nhanvien_ngach c = new nhanvien_ngach { id_ngach = ngach, id_nhanvien = id, bac = bac, ngay = ngay2 };
-                db.nhanvien_ngach.Add(c);
+                new NhanVienNgachRepository(db).AddNhanVienNgach(c);
                 db.SaveChanges();
             }
 
@@ -259,23 +206,17 @@ namespace Web.Controllers
             var id = Int32.Parse(Request.Form["id"]);
 
             //
-            var query = from b in db.nhanvien
-                        where b.id == id
-                        select b;
-            nhanvien a = query.FirstOrDefault<nhanvien>();
-            db.nhanvien.Remove(a);
+
+            nhanvien a = new NhanVienRepository(db).getNhanVien(id);
+            new NhanVienRepository(db).removeNhanVien(a);
             //
-            var query2 = from b in db.nhanvien_chucvu
-                         where b.id_nhanvien == id
-                         select b;
-            List<nhanvien_chucvu> list = query2.ToList();
-            db.nhanvien_chucvu.RemoveRange(list);
+
+            List<nhanvien_chucvu> list = new NhanVienChucVuRepository(db).getListNhanVienChucVu(id);
+            new NhanVienChucVuRepository(db).removeNhanVienChucVuRange(list);
             //
-            var query3 = from b in db.nhanvien_ngach
-                         where b.id_nhanvien == id
-                         select b;
-            List<nhanvien_ngach> list2 = query3.ToList();
-            db.nhanvien_ngach.RemoveRange(list2);
+
+            List<nhanvien_ngach> list2 = new NhanVienNgachRepository(db).getListNhanVienNgach(id);
+            new NhanVienNgachRepository(db).removeNhanVienNgachRange(list2);
 
             db.SaveChanges();
 
@@ -285,9 +226,7 @@ namespace Web.Controllers
 
         public JsonResult CheckAccount(string manhanvien)
         {
-            var query = from b in db.nhanvien
-                        where b.ma == manhanvien
-                        select b;
+            var query = new NhanVienRepository(db).getQueryMaNhanVien(manhanvien);
 
             var count = query.Count();
 

@@ -12,7 +12,7 @@ namespace Core.DTO
         public Int32 id_chucvu { get; set; }
         public Int32 id_nhanvien { get; set; }
         public String totnhat { get; set; }
-        public DateTime ngay { get; set; }
+        public DateTime? ngay { get; set; }
 
 
     }
