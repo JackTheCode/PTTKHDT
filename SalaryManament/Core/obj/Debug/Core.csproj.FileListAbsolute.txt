@@ -16,3 +16,4 @@ C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Core\bi
 C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Core\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Core\obj\Debug\DomainModel.dll
 C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Core\obj\Debug\DomainModel.pdb
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache

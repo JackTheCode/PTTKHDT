@@ -1,0 +1,5 @@
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Application\bin\Debug\Application.dll
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Application\bin\Debug\Application.pdb
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Application\obj\Debug\Application.csprojResolveAssemblyReference.cache
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Application\obj\Debug\Application.dll
+C:\Users\PHATNGUYEN\Documents\Visual Studio 2013\Projects\SalaryManament\Application\obj\Debug\Application.pdb
